@@ -1,7 +1,10 @@
+/** Angular */
 import { Component, inject } from '@angular/core';
-import { IntHero } from '../../interfaces';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+
+/** Interfaces */
+import { IntHero } from '@interfaces/hero.interface';
 
 @Component({
   selector: 'hero-search',
