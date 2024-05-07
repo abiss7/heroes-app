@@ -21,6 +21,7 @@ import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confi
 import { SearchComponent } from './components/search/search.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     MaterialModule,
     ReactiveFormsModule,
     InfiniteScrollModule,
+    SharedModule,
   ],
 })
 export class HeroesModule {}

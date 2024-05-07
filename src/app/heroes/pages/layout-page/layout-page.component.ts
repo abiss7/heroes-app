@@ -1,4 +1,12 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  SimpleChanges,
+  computed,
+  inject,
+} from '@angular/core';
 import { IntSidebarItem } from '../../interfaces';
 import { APP } from '../../constants/app.constant';
 import { LoadingService } from 'src/app/shared/services/laoding.service';
@@ -8,7 +16,7 @@ import { LoadingService } from 'src/app/shared/services/laoding.service';
   templateUrl: './layout-page.component.html',
   styleUrls: ['./layout-page.component.css'],
 })
-export class LayoutPageComponent {
+export class LayoutPageComponent implements AfterViewChecked {
   public sidebarItems: IntSidebarItem[] = [
     {
       label: 'Listado',
@@ -27,6 +35,14 @@ export class LayoutPageComponent {
     },
   ];
 
-  showLoading = computed(() => this.loadingService.isLoading());
+  private detectChange: ChangeDetectorRef = inject(ChangeDetectorRef);
   private loadingService: LoadingService = inject(LoadingService);
+
+  showLoading = computed(() => {
+    return this.loadingService.isLoading();
+  });
+
+  ngAfterViewChecked(): void {
+    this.detectChange.detectChanges();
+  }
 }

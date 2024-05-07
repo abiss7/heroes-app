@@ -6,8 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { HeroesModule } from './heroes/heroes.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Interceptors
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
@@ -23,6 +24,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     HeroesModule,
     HttpClientModule,
+    ReactiveFormsModule,
     SharedModule,
   ],
   providers: [

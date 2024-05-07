@@ -95,7 +95,7 @@ export class NewPageComponent implements OnInit {
         filter((wasDeleted: boolean) => wasDeleted)
       )
       .subscribe(() => {
-        this.router.navigate(['/heroes']);
+        this.navigateToListHeroes();
       });
   }
 
@@ -103,5 +103,10 @@ export class NewPageComponent implements OnInit {
     this.snackbar.open(message, 'done', {
       duration: 2500,
     });
+    this.navigateToListHeroes();
+  }
+
+  private navigateToListHeroes() {
+    this.router.navigate(['/heroes']);
   }
 }

@@ -18,6 +18,9 @@ export class SearchComponent {
       return;
     }
 
-    this.router.navigate(['/heroes/search', this.searchInput.value]);
+    this.router.navigate([
+      '/heroes/search',
+      this.searchInput.value.toLowerCase(),
+    ]);
   }
 }
