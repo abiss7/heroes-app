@@ -1,12 +1,23 @@
+/** Angular */
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { EnumPublisher, IntHero } from '../../interfaces';
-import { HeroService } from '../../services/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+/** Rxjs */
+import { filter, switchMap, tap } from 'rxjs';
+
+/** Angular Material */
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, switchMap, tap } from 'rxjs';
+
+/** Interfaces */
+import { EnumPublisher, IntHero } from '../../interfaces';
+
+/** Components */
 import { DialogConfirmComponent } from '../../components/dialog-confirm/dialog-confirm.component';
+
+/** Services */
+import { HeroService } from '../../services/hero.service';
 
 @Component({
   selector: 'app-new-page',
@@ -41,10 +52,16 @@ export class NewPageComponent implements OnInit {
     return hero;
   }
 
+  //#region -----------------------------------------------------> HOOKS
+
   ngOnInit(): void {
     if (!this.router.url.includes('edit')) return;
     this.initHero();
   }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> INIT
 
   initHero() {
     this.activatedRoute.params
@@ -62,6 +79,10 @@ export class NewPageComponent implements OnInit {
         },
       });
   }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> EVENTS
 
   onSubmit(): void {
     if (this.heroForm.invalid) return;
@@ -99,6 +120,10 @@ export class NewPageComponent implements OnInit {
       });
   }
 
+  //#endregion
+
+  //#region -----------------------------------------------------> AUX
+
   showSnackbar(message: string): void {
     this.snackbar.open(message, 'done', {
       duration: 2500,
@@ -109,4 +134,6 @@ export class NewPageComponent implements OnInit {
   private navigateToListHeroes() {
     this.router.navigate(['/heroes']);
   }
+
+  //#endregion
 }

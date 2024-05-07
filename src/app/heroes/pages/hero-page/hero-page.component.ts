@@ -23,9 +23,15 @@ export class HeroPageComponent {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private heroService: HeroService = inject(HeroService);
 
+  //#region -----------------------------------------------------> HOOKS
+
   ngOnInit(): void {
     this.initHero();
   }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> INIT
 
   initHero() {
     this.activatedRoute.params
@@ -42,7 +48,13 @@ export class HeroPageComponent {
       });
   }
 
+  //#endregion
+
+  //#region -----------------------------------------------------> AUX
+
   goBack(): void {
     this.router.navigateByUrl('/heroes/list');
   }
+
+  //#endregion
 }

@@ -1,3 +1,4 @@
+/** Angular */
 import {
   Component,
   Input,
@@ -7,12 +8,24 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { HeroService } from '../../services/hero.service';
-import { IntHero, IntPagination } from '../../interfaces';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { DialogConfirmComponent } from '../../components/dialog-confirm/dialog-confirm.component';
+
+/** Rxjs */
 import { filter, switchMap } from 'rxjs';
+
+/** Angular Material */
+import { MatDialog } from '@angular/material/dialog';
+
+/** Interfaces */
+import { IntHero, IntPagination } from '../../interfaces';
+
+/** Components */
+import { DialogConfirmComponent } from '@components/dialog-confirm/dialog-confirm.component';
+
+/** Services */
+import { HeroService } from '../../services/hero.service';
+
+/** Helpers */
 import { getSizePageByDevice } from 'src/app/shared/helpers/device.helper';
 
 @Component({
@@ -33,9 +46,19 @@ export class ListPageComponent implements OnInit, OnDestroy {
   private dialog: MatDialog = inject(MatDialog);
   private heroService: HeroService = inject(HeroService);
 
+  //#region -----------------------------------------------------> HOOKS
+
   ngOnInit(): void {
     this.loadHeroes();
   }
+
+  ngOnDestroy(): void {
+    this.heroes.set([]);
+  }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> INIT
 
   loadHeroes(added: boolean = false) {
     this.heroService.getHeroes(this.pagination).subscribe({
@@ -49,6 +72,10 @@ export class ListPageComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> EVENTS
 
   onScroll = () => {
     this.pagination.startPage++;
@@ -75,11 +102,13 @@ export class ListPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  //#endregion
+
+  //#region -----------------------------------------------------> AUX
+
   trackById(index: number, hero: IntHero): string {
     return `${index}-${hero.id}`;
   }
 
-  ngOnDestroy(): void {
-    this.heroes.set([]);
-  }
+  //#endregion
 }

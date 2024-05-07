@@ -20,7 +20,6 @@ import { HeroImagePipe } from './pipes/hero-image.pipe';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { SearchComponent } from './components/search/search.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { LoadingComponent } from './shared/components/loading/loading.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -34,7 +33,6 @@ import { SharedModule } from '../shared/shared.module';
     DialogConfirmComponent,
     SearchComponent,
     SearchPageComponent,
-    LoadingComponent,
   ],
   imports: [
     CommonModule,

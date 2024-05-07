@@ -16,6 +16,8 @@ export class SearchComponent {
 
   private router: Router = inject(Router);
 
+  //#region -----------------------------------------------------> INIT
+
   searchHero() {
     if (!this.searchInput?.value) {
       return;
@@ -26,4 +28,6 @@ export class SearchComponent {
       this.searchInput.value.toLowerCase(),
     ]);
   }
+
+  //#endregion
 }

@@ -1,3 +1,4 @@
+/** Angular */
 import {
   Component,
   Input,
@@ -7,10 +8,18 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { HeroService } from '../../services/hero.service';
-import { IntHero, IntPagination } from '../../interfaces';
 import { ActivatedRoute } from '@angular/router';
+
+/** Rxjs */
 import { switchMap, tap } from 'rxjs';
+
+/** Services */
+import { HeroService } from '../../services/hero.service';
+
+/** Interfaces */
+import { IntHero, IntPagination } from '../../interfaces';
+
+/** Helpers */
 import { getSizePageByDevice } from 'src/app/shared/helpers/device.helper';
 
 @Component({
@@ -31,9 +40,19 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private heroService: HeroService = inject(HeroService);
 
+  //#region -----------------------------------------------------> HOOKS
+
   ngOnInit(): void {
     this.searchHeroes();
   }
+
+  ngOnDestroy(): void {
+    this.heroes.set([]);
+  }
+
+  //#endregion
+
+  //#region -----------------------------------------------------> INIT
 
   searchHeroes(added: boolean = false) {
     this.activatedRoute.params
@@ -55,16 +74,22 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  //#endregion
+
+  //#region -----------------------------------------------------> EVENTS
+
   onScroll = () => {
     this.pagination.startPage++;
     this.searchHeroes(true);
   };
 
+  //#endregion
+
+  //#region -----------------------------------------------------> AUX
+
   trackById(index: number, hero: IntHero): string {
     return hero.id;
   }
 
-  ngOnDestroy(): void {
-    this.heroes.set([]);
-  }
+  //#endregion
 }

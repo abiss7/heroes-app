@@ -17,6 +17,8 @@ export class DialogConfirmComponent {
     @Inject(MAT_DIALOG_DATA) public data: IntHero
   ) {}
 
+  //#region -----------------------------------------------------> EVENTS
+
   onNoClick(): void {
     this.dialogRef.close(false);
   }
@@ -24,4 +26,6 @@ export class DialogConfirmComponent {
   onConfirm(): void {
     this.dialogRef.close(true);
   }
+
+  //#endregion
 }

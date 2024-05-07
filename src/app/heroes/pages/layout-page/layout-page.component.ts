@@ -1,15 +1,20 @@
+/** Angular */
 import {
   AfterViewChecked,
   ChangeDetectorRef,
   Component,
-  OnChanges,
-  SimpleChanges,
   computed,
   inject,
 } from '@angular/core';
-import { IntSidebarItem } from '../../interfaces';
+
+/** Constants */
 import { APP } from '../../constants/app.constant';
+
+/** Services */
 import { LoadingService } from 'src/app/shared/services/laoding.service';
+
+/** Interfaces */
+import { IntSidebarItem } from '@interfaces/app.interface';
 
 @Component({
   selector: 'app-layout-page',
@@ -42,7 +47,11 @@ export class LayoutPageComponent implements AfterViewChecked {
     return this.loadingService.isLoading();
   });
 
+  //#region -----------------------------------------------------> HOOKS
+
   ngAfterViewChecked(): void {
     this.detectChange.detectChanges();
   }
+
+  //#endregion
 }
