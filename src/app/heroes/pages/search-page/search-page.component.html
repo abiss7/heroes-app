@@ -1,0 +1,17 @@
+<h1>Resultados de {{ valueSearch }}</h1>
+<!-- Buscador -->
+<hero-search />
+<mat-divider></mat-divider>
+
+<div *ngIf="showHeroes() else message" class="grid mb-8 pt-2">
+  <div *ngFor="let hero of heroes(); trackBy: trackById"
+    class="col-12 sm:col-4 md:col-3 xl:col-2">
+    <hero-card [hero]="hero" />
+  </div>
+</div>
+
+<ng-template #message>
+  <div>
+    {{ messageEmpty }}
+  </div>
+</ng-template>

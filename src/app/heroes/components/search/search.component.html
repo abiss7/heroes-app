@@ -1,0 +1,25 @@
+<div class="flex flex-column p-2">
+  <h3>Buscador</h3>
+
+  <mat-form-field>
+    <mat-label>Buscador de héroes</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="searchInput"
+      (keyup.enter)="searchHero()"
+    >
+  </mat-form-field>
+  <mat-card-actions *ngIf="searchInput?.value">
+    <button
+      mat-button
+      mat-raised
+      color="primary"
+      [routerLink]="['/heroes/list']"
+    >
+      <mat-icon>clear</mat-icon>
+      Limpiar
+    </button>
+  </mat-card-actions>
+
+</div>
