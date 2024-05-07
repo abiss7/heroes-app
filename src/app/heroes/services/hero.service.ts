@@ -11,14 +11,18 @@ import { environments } from 'src/environments/environments';
 
 /** Interfaces */
 import { IntHero } from '../interfaces/hero.interface';
+import { IntPagination } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
   private baseUrl: string = environments.baseUrl;
   private http: HttpClient = inject(HttpClient);
 
-  getHeroes(): Observable<IntHero[]> {
-    return this.http.get<IntHero[]>(`${this.baseUrl}/heroes`);
+  getHeroes(pagination: IntPagination): Observable<IntHero[]> {
+    const { startPage, offset } = pagination || {};
+    return this.http.get<IntHero[]>(
+      `${this.baseUrl}/heroes?_start=${startPage}&_limit=${offset}`
+    );
   }
 
   getHeroById(id: string): Observable<IntHero | null> {

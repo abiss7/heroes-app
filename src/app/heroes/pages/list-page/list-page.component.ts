@@ -8,7 +8,11 @@ import {
   signal,
 } from '@angular/core';
 import { HeroService } from '../../services/hero.service';
-import { IntHero } from '../../interfaces';
+import { IntHero, IntPagination } from '../../interfaces';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { DialogConfirmComponent } from '../../components/dialog-confirm/dialog-confirm.component';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'list-page',
@@ -18,16 +22,19 @@ import { IntHero } from '../../interfaces';
 export class ListPageComponent implements OnInit, OnDestroy {
   @Input() heroes = signal<IntHero[]>([]);
   @Input() messageEmpty: string = 'No se han encontrado resultados';
+  @Input() pagination: IntPagination = { startPage: 3, offset: 3 };
   showHeroes = computed<boolean>(() => !!this.heroes()?.length);
 
-  private heroesService: HeroService = inject(HeroService);
+  private router: Router = inject(Router);
+  private dialog: MatDialog = inject(MatDialog);
+  private heroService: HeroService = inject(HeroService);
 
   ngOnInit(): void {
     this.initHeroes();
   }
 
   initHeroes() {
-    this.heroesService.getHeroes().subscribe({
+    this.heroService.getHeroes(this.pagination).subscribe({
       next: (heroes: IntHero[]) => {
         this.heroes.set([...heroes]);
       },
@@ -35,6 +42,26 @@ export class ListPageComponent implements OnInit, OnDestroy {
         this.heroes.set([]);
       },
     });
+  }
+
+  onDelete(hero: IntHero) {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      data: hero,
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((result: boolean) => result),
+        switchMap(() => this.heroService.deleteHeroById(hero.id)),
+        filter((wasDeleted: boolean) => wasDeleted)
+      )
+      .subscribe(() => {
+        this.heroes.update((heroes) => {
+          return this.heroes().filter((h) => h.id !== hero.id);
+        });
+        this.router.navigate(['/heroes']);
+      });
   }
 
   trackById(index: number, hero: IntHero): string {

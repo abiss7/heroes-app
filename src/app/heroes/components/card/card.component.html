@@ -25,12 +25,31 @@
         mat-button
         mat-raised
         color="primary"
+        [routerLink]="['/heroes/new-hero']"
+      >
+        <mat-icon>add</mat-icon>
+
+      </button>
+      <button
+        mat-button
+        mat-raised
+        color="primary"
         [routerLink]="['/heroes/edit', hero.id]"
       >
         <mat-icon>edit</mat-icon>
-        Editar
-      </button>
 
+      </button>
+      <button
+        mat-button
+        mat-raised
+        color="warn"
+        (click)="onDelete(hero)"
+      >
+        <mat-icon>delete</mat-icon>
+
+      </button>
+    </mat-card-actions>
+    <mat-card-actions>
       <span class="spacer"></span>
 
       <button
@@ -41,6 +60,5 @@
           <mat-icon>more_horiz</mat-icon>
           Más
         </button>
-
     </mat-card-actions>
 </mat-card>

@@ -6,7 +6,10 @@
 <div *ngIf="showHeroes() else message" class="grid mb-8 pt-2">
   <div *ngFor="let hero of heroes(); trackBy: trackById"
     class="col-12 sm:col-4 md:col-3 xl:col-2">
-    <hero-card [hero]="hero" />
+    <hero-card
+      [hero]="hero"
+      (onDeleteEmitter)="onDelete($event)"
+      />
   </div>
 </div>
 
