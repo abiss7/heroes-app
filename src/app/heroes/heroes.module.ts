@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Modules
 import { HeroesRoutingModule } from './heroes-routing.module';
 import { MaterialModule } from '../material/material.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Components
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
@@ -19,6 +20,7 @@ import { HeroImagePipe } from './pipes/hero-image.pipe';
 import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
 import { SearchComponent } from './components/search/search.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     DialogConfirmComponent,
     SearchComponent,
     SearchPageComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
     HeroesRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
   ],
 })
 export class HeroesModule {}

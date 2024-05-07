@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { IntSidebarItem } from '../../interfaces';
 import { APP } from '../../constants/app.constant';
+import { LoadingService } from 'src/app/shared/services/laoding.service';
 
 @Component({
   selector: 'app-layout-page',
@@ -19,6 +20,13 @@ export class LayoutPageComponent {
       icon: 'add',
       url: `./${APP.PAGES.Root.children.NewHero}`,
     },
-    { label: 'Buscar', icon: 'search', url: './search' },
+    {
+      label: 'Buscar',
+      icon: 'search',
+      url: `./${APP.PAGES.Root.children.SearchMenu}`,
+    },
   ];
+
+  showLoading = computed(() => this.loadingService.isLoading());
+  private loadingService: LoadingService = inject(LoadingService);
 }

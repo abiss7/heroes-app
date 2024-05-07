@@ -1,9 +1,17 @@
 <h1>Listado de Héroes</h1>
-<!-- Buscador -->
+<!-- SEARCH -->
 <hero-search />
 <mat-divider></mat-divider>
 
-<div *ngIf="showHeroes() else message" class="grid mb-8 pt-2">
+<div
+    *ngIf="showHeroes() else message"
+    class="grid mb-8 pt-2 search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+  >
   <div *ngFor="let hero of heroes(); trackBy: trackById"
     class="col-12 sm:col-4 md:col-3 xl:col-2">
     <hero-card
@@ -13,6 +21,7 @@
   </div>
 </div>
 
+<!-- EMPTY RESULTS -->
 <ng-template #message>
   <div>
     {{ messageEmpty }}

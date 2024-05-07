@@ -8,6 +8,7 @@ export const APP = {
         List: 'list',
         Hero: ':id',
         Search: 'search/:valueSearch',
+        SearchMenu: 'search',
       },
       404: '404',
     },

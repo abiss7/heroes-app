@@ -27,6 +27,10 @@
       </button>
     </mat-toolbar>
 
+    <!-- LOADING -->
+    <app-loading [isLoading]="showLoading()" />
+
+    <!-- PAGES -->
     <div class="container p-2">
       <router-outlet></router-outlet>
     </div>

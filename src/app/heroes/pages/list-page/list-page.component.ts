@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogConfirmComponent } from '../../components/dialog-confirm/dialog-confirm.component';
 import { filter, switchMap } from 'rxjs';
+import { getSizePageByDevice } from 'src/app/shared/helpers/device.helper';
 
 @Component({
   selector: 'list-page',
@@ -22,7 +23,10 @@ import { filter, switchMap } from 'rxjs';
 export class ListPageComponent implements OnInit, OnDestroy {
   @Input() heroes = signal<IntHero[]>([]);
   @Input() messageEmpty: string = 'No se han encontrado resultados';
-  @Input() pagination: IntPagination = { startPage: 3, offset: 3 };
+  @Input() pagination: IntPagination = {
+    startPage: 1,
+    offset: getSizePageByDevice(),
+  };
   showHeroes = computed<boolean>(() => !!this.heroes()?.length);
 
   private router: Router = inject(Router);
@@ -30,19 +34,26 @@ export class ListPageComponent implements OnInit, OnDestroy {
   private heroService: HeroService = inject(HeroService);
 
   ngOnInit(): void {
-    this.initHeroes();
+    this.loadHeroes();
   }
 
-  initHeroes() {
+  loadHeroes(added: boolean = false) {
     this.heroService.getHeroes(this.pagination).subscribe({
       next: (heroes: IntHero[]) => {
-        this.heroes.set([...heroes]);
+        added
+          ? this.heroes.set([...this.heroes(), ...heroes])
+          : this.heroes.set([...heroes]);
       },
-      error: () => {
-        this.heroes.set([]);
+      error: (err) => {
+        console.error(err);
       },
     });
   }
+
+  onScroll = () => {
+    this.pagination.startPage++;
+    this.loadHeroes(true);
+  };
 
   onDelete(hero: IntHero) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
@@ -58,7 +69,7 @@ export class ListPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(() => {
         this.heroes.update((heroes) => {
-          return this.heroes().filter((h) => h.id !== hero.id);
+          return heroes.filter((h) => h.id !== hero.id);
         });
         this.router.navigate(['/heroes']);
       });

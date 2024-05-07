@@ -1,0 +1,12 @@
+.search-results {
+  height: 40rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+/* Tablet */
+@media screen and (min-height: 1300px) {
+  .search-results {
+    height: 70rem;
+  }
+}

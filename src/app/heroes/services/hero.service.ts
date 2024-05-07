@@ -21,7 +21,7 @@ export class HeroService {
   getHeroes(pagination: IntPagination): Observable<IntHero[]> {
     const { startPage, offset } = pagination || {};
     return this.http.get<IntHero[]>(
-      `${this.baseUrl}/heroes?_start=${startPage}&_limit=${offset}`
+      `${this.baseUrl}/heroes?_page=${startPage}&_limit=${offset}`
     );
   }
 
@@ -31,9 +31,13 @@ export class HeroService {
       .pipe(catchError((error) => of(null)));
   }
 
-  getSuggestions(query: string): Observable<IntHero[]> {
+  getSuggestions(
+    query: string,
+    pagination: IntPagination
+  ): Observable<IntHero[]> {
+    const { startPage, offset } = pagination || {};
     return this.http.get<IntHero[]>(
-      `${this.baseUrl}/heroes?q=${query}&_limit=6`
+      `${this.baseUrl}/heroes?q=${query}&_page=${startPage}&_limit=${offset}`
     );
   }
 
