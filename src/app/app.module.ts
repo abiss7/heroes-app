@@ -33,7 +33,7 @@ import { AppComponent } from './app.component';
       useClass: LoadingInterceptor,
       multi: true,
     },
-    { provide: 'REQUEST_DELAY', useValue: 500 },
+    { provide: 'REQUEST_DELAY', useValue: 200 },
   ],
   bootstrap: [AppComponent],
 })
